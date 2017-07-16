@@ -26,10 +26,19 @@ class Board:
 		numPenguins = max(1, round(self.size/10))
 		print("Placing Penguins")
 		while numPenguins > 0:
-			for row in range(self.size):
-				for column in range(self.size):
-					if random.randint(0, 10) == 1:
-						numPenguins -= 1
-						self.board[row][column] = Penguin
-		time.sleep(1.5)
-		print("Penguins Placed!")
+			if self.placeRow():
+				break
+
+	def placeRow(self):
+		for row in range(self.size):
+			if self.placeColumn(row):
+				return True
+
+	def placeColumn(self, row):
+		for column in range(self.size):
+			if random.randint(0, self.size ** 2) == 1:
+				self.board[row][column] = Penguin()
+				return True
+				
+	time.sleep(1)
+	print("Penguins Placed!")
